@@ -23,5 +23,5 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.SNEAKYDOG_GITHUB_PAGES_TOKEN }}
-          publish_dir: "./public"
+          publish_dir: "./"
           commit_message: ${{ github.event.head_commit.message }}
