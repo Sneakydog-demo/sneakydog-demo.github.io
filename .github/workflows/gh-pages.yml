@@ -1,27 +1,21 @@
-name: github pages
+name: deploying Hexo project to GitHub pages
 
 on:
   push:
     branches:
-      - main # Set a branch to deploy
-  pull_request:
+      - develop
 
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+      - name: Checkout
+        uses: actions/checkout@master
 
-      - name: Create cname file
-        run: echo '2.sneaky.dog' > CNAME
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
-        with:
-          github_token: ${{ secrets.SNEAKYDOG_GITHUB_PAGES_TOKEN }}
-          publish_dir: "./"
-          commit_message: ${{ github.event.head_commit.message }}
+      - name: Build and Deploy
+        uses: theme-keep/hexo-deploy-github-pages-action@master
+        env:
+          PERSONAL_TOKEN: ${{ secrets.SNEAKYDOG_GITHUB_PAGES_TOKEN }}
+          PUBLISH_REPOSITORY: Hxhzfd/hxhzfd.github.io
+          BRANCH: gh-pages
+          PUBLISH_DIR: ./public
