@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
+      - name: Set-sass-binary-mirrors
+      - run |
+        npm config set sass-binary-site http://npm.taobao.org/mirrors/node-sass
       - name: Build and Deploy
         uses: theme-keep/hexo-deploy-github-pages-action@master
         env:
