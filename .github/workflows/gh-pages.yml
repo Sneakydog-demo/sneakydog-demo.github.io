@@ -15,6 +15,6 @@ jobs:
         uses: theme-keep/hexo-deploy-github-pages-action@master
         env:
           PERSONAL_TOKEN: ${{ secrets.SNEAKYDOG_GITHUB_PAGES_TOKEN }}
-          PUBLISH_REPOSITORY: Sneakydog-dmeo/sneakydog-demo.github.io
+          PUBLISH_REPOSITORY: Sneakydog-demo/sneakydog-demo.github.io
           BRANCH: gh-pages
           PUBLISH_DIR: ./public
