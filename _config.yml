@@ -103,6 +103,6 @@ theme: sky
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: "git"
-  repo: https://github.com/Hxhzfd/hxhzfd.github.io.git
+  repo: https://github.com/Sneakydog-demo/sneakydog-demo.github.io.git
   branch: "gh-pages"
-  message: "Site updated: { { now('YYYY-MM-DD HH:mm:ss') } }"
+  message: "Site updated"

@@ -9,6 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - run: npm config get registry
       - name: Checkout
         uses: actions/checkout@master
       - name: Build and Deploy
