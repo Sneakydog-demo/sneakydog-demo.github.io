@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>Sneakydog-demo</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+            <a href="/about/" class="header-nav-link">
+                About
+            </a>
+            
+        </nav>
+    </div>
+</header>
+    <header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Hxh's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+    <div class="main">
+        <div class="content-inner">
+            <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">archlinux i3wm安装配置中文输入法</h2>
+            <div class="post-meta">
+                <span class="post-time">2021-10-15</span>
+                
+                <span class="post-visit"> visited：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Rs $(pacman -Qsq fcitx)</span><br><span class="line">sudo pacman -S fcitx5 fcitx5-configtool fcitx5-qt fcitx5-gtk fcitx5-chinese-addons fcitx5-material-color</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>fcitx5: 输入法基础框架主程序<br>fcitx5-configtool(kcm-fcitx5)：输入法配置程序(KDE桌面环境的支持)<br>fcitx5-qt: QT5程序的支持<br>fcitx5-gtk: GTK程序的支持<br>fcitx5-chinese-addons: 简体中文输入的支持，云拼音<br>fcitx5-material-color：一款使用 Material Design 配色的 fcitx5 皮肤，旨在模仿 Windows 10 自带输入法的 UI</p>
+</blockquote>
+<p>修改输入法环境变量，使应用可以调用Fcitx5输入法,将下面的内容粘贴到<code>~/.pam_environment</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GTK_IM_MODULE DEFAULT=fcitx</span><br><span class="line">QT_IM_MODULE  DEFAULT=fcitx</span><br><span class="line">XMODIFIERS    DEFAULT=@im=fcitx</span><br></pre></td></tr></table></figure>
+
+<p>i3配置自动启动,<code>～/.i3/config</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec --no-startup-id fcitx5</span><br></pre></td></tr></table></figure>
+
+<p>配置输入法主题,修改 <code>~/.config/fcitx5/conf/classicui.conf</code><br>ps: 使用<code>fcitx5-material-color</code>这个主题,可以参照: <a target="_blank" rel="noopener" href="https://github.com/hosxy/Fcitx5-Material-Color">https://github.com/hosxy/Fcitx5-Material-Color</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 垂直候选列表</span><br><span class="line">Vertical Candidate List=False</span><br><span class="line"># 按屏幕 DPI 使用</span><br><span class="line">PerScreenDPI=True</span><br><span class="line"># Font (设置成你喜欢的字体)</span><br><span class="line">Font=&quot;思源黑体 CN Medium 13&quot;</span><br><span class="line"># 主题</span><br><span class="line">Theme=Material-Color-DeepPurple</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/5198378/128584769-7cb6493a-210e-41f3-9431-20ca283b03c1.png" alt="2021-08-07_10-10"></p>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2021/10/20/idea-docker-ca-auth-create/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">在idea中一键部署项目到Docker及CA认证</span>
+                <span class="nav-mobile">Prev</span>
+            </a>
+        
+        
+            <a class="next" href="/2021/10/13/hello-world/">
+                <span class="nav-default">Hello World</span>
+                <span class="nav-mobile">Next</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+
+<div class="comment-container">
+    <script src="https://utteranc.es/client.js" repo="Sneakydog-demo/sneakydog-demo.github.io" issue-term="pathname"
+        theme="github-light" crossorigin="anonymous" async>
+    </script>
+</div>
+
+        </div>
+    </div>
+
+    <footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2021
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/Hxhzfd">Hxh</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

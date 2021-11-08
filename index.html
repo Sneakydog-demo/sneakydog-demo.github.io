@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>Sneakydog-demo</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                Home
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                Archives
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                Tags
+            </a>
+            
+
+            
+            <a href="/about/" class="header-nav-link">
+                About
+            </a>
+            
+        </nav>
+    </div>
+</header>
+    <header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Hxh's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">Home</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">Archives</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">Tags</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">About</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+    <div class="main">
+        <div class="content-inner">
+            <div class="posts">
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2021/11/08/vue-springboot-bushu/">vue在springboot中部署</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2021-11-08</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p><a target="_blank" rel="noopener" href="https://gitee.com/Sneakydog/sneakydog-hello-vue3-demo">项目地址</a></p>
+<p>把vue项目代码和springboot项目代码合并成一个目录如下:<br><img src="https://user-images.githubusercontent.com/5198378/140686780-62aaf972-c8ff-4d7d-9f9e-9274f4113425.png" alt="image"></p>
+<p>修改vite.config.ts生成目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import &#123;defineConfig&#125; from &#x27;vite&#x27;</span><br><span class="line">import vue from &#x27;@vitejs/plugin-vue&#x27;</span><br><span class="line"></span><br><span class="line">// https://vitejs.dev/config/</span><br><span class="line">export default defineConfig(&#123;</span><br><span class="line">  plugins: [vue()],</span><br><span class="line">  // server: &#123;</span><br><span class="line">  //   proxy: &#123;</span><br><span class="line">  //     &#x27;/api&#x27;: &#x27;http://localhost:8080/&#x27;</span><br><span class="line">  //   &#125;</span><br><span class="line">  // &#125;,</span><br><span class="line">  build: &#123;</span><br><span class="line">    outDir: &#x27;./src/main/resources/webapp&#x27;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>vue路由配置,简单使用hash路由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">export const router = createRouter(&#123;</span><br><span class="line">    history: createWebHashHistory(),</span><br><span class="line">    routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: &#x27;/login&#x27;,</span><br><span class="line">            component: Login,</span><br><span class="line">            meta: &#123;</span><br><span class="line">                requireAuth: false</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: &#x27;/&#x27;,</span><br><span class="line">            component: Home,</span><br><span class="line">            meta: &#123;</span><br><span class="line">                requireAuth: true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: &#x27;/about&#x27;,</span><br><span class="line">            component: About,</span><br><span class="line">            meta: &#123;</span><br><span class="line">                requireAuth: true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    ],</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>修改springboot配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  web:</span><br><span class="line">    resources:</span><br><span class="line">      static-locations: classpath:/webapp/assets/</span><br><span class="line">  mvc:</span><br><span class="line">    log-request-details: true</span><br><span class="line">    static-path-pattern: /assets/**.&#123;js,css&#125;</span><br><span class="line">  thymeleaf:</span><br><span class="line">    prefix: classpath:/webapp/</span><br><span class="line">    cache: false</span><br></pre></td></tr></table></figure>
+
+<p>创建一个rest API</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&#123;&quot;/&quot;, &quot;/index&quot;, &quot;/index.html&quot;&#125;)</span><br><span class="line">public String index()&#123;</span><br><span class="line">    return &quot;index&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成vue静态文件之后启动springboot<br><img src="https://user-images.githubusercontent.com/5198378/140687691-d4f603f1-541a-4d4d-9a46-813ce3425938.png" alt="image"></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2021/10/20/idea-docker-ca-auth-create/">在idea中一键部署项目到Docker及CA认证</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2021-10-20</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h4 id="1-创建ca文件夹工作目录"><a href="#1-创建ca文件夹工作目录" class="headerlink" title="1.创建ca文件夹工作目录"></a>1.创建ca文件夹工作目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/ca</span><br><span class="line">cd /usr/local/ca/</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-创建-CA-私钥和公钥"><a href="#2-创建-CA-私钥和公钥" class="headerlink" title="2.创建 CA 私钥和公钥"></a>2.创建 CA 私钥和公钥</h4><h6 id="创建密码"><a href="#创建密码" class="headerlink" title="创建密码"></a>创建密码</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -aes256 -out ca-key.pem 4096</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...................++</span><br><span class="line">.................................................................................................++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">Enter pass phrase for ca-key.pem:  # 此处输入密码</span><br><span class="line">Verifying - Enter pass phrase for ca-key.pem: # 此处输入密码</span><br></pre></td></tr></table></figure>
+
+<h6 id="依次输入密码、国家、省、市、组织名称等"><a href="#依次输入密码、国家、省、市、组织名称等" class="headerlink" title="依次输入密码、国家、省、市、组织名称等"></a>依次输入密码、国家、省、市、组织名称等</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -days 365 -key ca-key.pem -sha256 -out ca.pem</span><br></pre></td></tr></table></figure>
+
+<h6 id="生成-server-key-pem"><a href="#生成-server-key-pem" class="headerlink" title="生成 server-key.pem"></a>生成 server-key.pem</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out server-key.pem 4096</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Generating RSA private key, 4096 bit long modulus</span><br><span class="line">...........................++</span><br><span class="line">................++</span><br><span class="line">e is 65537 (0x10001)</span><br></pre></td></tr></table></figure>
+
+<h6 id="把下面的-Host换成你自己服务器外网的IP或者域名"><a href="#把下面的-Host换成你自己服务器外网的IP或者域名" class="headerlink" title="把下面的$Host换成你自己服务器外网的IP或者域名"></a>把下面的$Host换成你自己服务器外网的IP或者域名</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -subj &quot;/CN=www.xxx.com&quot; -sha256 -new -key server-key.pem -out server.csr</span><br></pre></td></tr></table></figure>
+
+<h6 id="配置白名单"><a href="#配置白名单" class="headerlink" title="配置白名单"></a>配置白名单</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo subjectAltName = DNS:www.xxx.com,IP:0.0.0.0 &gt;&gt; extfile.cnf</span><br></pre></td></tr></table></figure>
+
+<h6 id="执行命令，将Docker守护程序密钥的扩展使用属性设置为仅用于服务器身份验证"><a href="#执行命令，将Docker守护程序密钥的扩展使用属性设置为仅用于服务器身份验证" class="headerlink" title="执行命令，将Docker守护程序密钥的扩展使用属性设置为仅用于服务器身份验证"></a>执行命令，将Docker守护程序密钥的扩展使用属性设置为仅用于服务器身份验证</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo extendedKeyUsage = serverAuth &gt;&gt; extfile.cnf</span><br></pre></td></tr></table></figure>
+
+<h6 id="执行命令，并输入之前设置的密码，生成用到头秃签名证书"><a href="#执行命令，并输入之前设置的密码，生成用到头秃签名证书" class="headerlink" title="执行命令，并输入之前设置的密码，生成用到头秃签名证书"></a>执行命令，并输入之前设置的密码，生成用到头秃签名证书</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 36500 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem \-CAcreateserial -out server-cert.pem -extfile extfile.cnf</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Signature ok</span><br><span class="line">subject=/CN=x.x.x.x</span><br><span class="line">Getting CA Private Key</span><br><span class="line">Enter pass phrase for ca-key.pem: </span><br></pre></td></tr></table></figure>
+
+<h6 id="生成客户端的key-pem，到时候把生成好的几个公钥私钥拷出去即可"><a href="#生成客户端的key-pem，到时候把生成好的几个公钥私钥拷出去即可" class="headerlink" title="生成客户端的key.pem，到时候把生成好的几个公钥私钥拷出去即可"></a>生成客户端的key.pem，到时候把生成好的几个公钥私钥拷出去即可</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out key.pem 4096</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Generating RSA private key, 4096 bit long modulus (2 primes)</span><br><span class="line">.......................................++++</span><br><span class="line">...............................................................................................................................++++</span><br><span class="line">e is 65537 (0x010001)</span><br></pre></td></tr></table></figure>
+
+<p>执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -subj &#x27;/CN=client&#x27; -new -key key.pem -out client.csr</span><br></pre></td></tr></table></figure>
+
+<h6 id="执行命令，要使密钥适合客户端身份验证，请创建扩展配置文件"><a href="#执行命令，要使密钥适合客户端身份验证，请创建扩展配置文件" class="headerlink" title="执行命令，要使密钥适合客户端身份验证，请创建扩展配置文件"></a>执行命令，要使密钥适合客户端身份验证，请创建扩展配置文件</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo extendedKeyUsage = clientAuth &gt;&gt; extfile.cnf</span><br></pre></td></tr></table></figure>
+
+<h6 id="生成cert-pem-需要输入前面设置的密码，生成签名证书"><a href="#生成cert-pem-需要输入前面设置的密码，生成签名证书" class="headerlink" title="生成cert.pem,需要输入前面设置的密码，生成签名证书"></a>生成cert.pem,需要输入前面设置的密码，生成签名证书</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -sha256 -in client.csr -CA ca.pem -CAkey ca-key.pem \-CAcreateserial -out cert.pem -extfile extfile.cnf</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Signature ok</span><br><span class="line">subject=CN = client</span><br><span class="line">Getting CA Private Key</span><br><span class="line">Enter pass phrase for ca-key.pem:</span><br></pre></td></tr></table></figure>
+
+<h6 id="删除不需要的文件，两个证书签名请求"><a href="#删除不需要的文件，两个证书签名请求" class="headerlink" title="删除不需要的文件，两个证书签名请求"></a>删除不需要的文件，两个证书签名请求</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v client.csr server.csr</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">removed &#x27;client.csr&#x27;</span><br><span class="line">removed &#x27;server.csr</span><br></pre></td></tr></table></figure>
+
+<h6 id="修改权限，要保护您的密钥免受意外损坏，请删除其写入权限。要使它们只能被您读取，更改文件模式"><a href="#修改权限，要保护您的密钥免受意外损坏，请删除其写入权限。要使它们只能被您读取，更改文件模式" class="headerlink" title="修改权限，要保护您的密钥免受意外损坏，请删除其写入权限。要使它们只能被您读取，更改文件模式"></a>修改权限，要保护您的密钥免受意外损坏，请删除其写入权限。要使它们只能被您读取，更改文件模式</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -v 0400 ca-key.pem key.pem server-key.pem</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mode of &#x27;ca-key.pem&#x27; changed from 0600 (rw-------) to 0400 (r--------)</span><br><span class="line">mode of &#x27;key.pem&#x27; changed from 0600 (rw-------) to 0400 (r--------)</span><br><span class="line">mode of &#x27;server-key.pem&#x27; changed from 0600 (rw-------) to 0400 (r--------)</span><br></pre></td></tr></table></figure>
+
+<h6 id="证书可以是对外可读的，删除写入权限以防止意外损坏"><a href="#证书可以是对外可读的，删除写入权限以防止意外损坏" class="headerlink" title="证书可以是对外可读的，删除写入权限以防止意外损坏"></a>证书可以是对外可读的，删除写入权限以防止意外损坏</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -v 0444 ca.pem server-cert.pem cert.pem</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mode of &#x27;ca.pem&#x27; changed from 0644 (rw-r--r--) to 0444 (r--r--r--)</span><br><span class="line">mode of &#x27;server-cert.pem&#x27; changed from 0644 (rw-r--r--) to 0444 (r--r--r--)</span><br><span class="line">mode of &#x27;cert.pem&#x27; changed from 0644 (rw-r--r--) to 0444 (r--r--r--)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-docker-及-idea-的配置"><a href="#3-docker-及-idea-的配置" class="headerlink" title="3.docker 及 idea 的配置"></a>3.docker 及 idea 的配置</h4><h6 id="归集服务器证书"><a href="#归集服务器证书" class="headerlink" title="归集服务器证书"></a>归集服务器证书</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp server-*.pem  /etc/docker/</span><br><span class="line">cp ca.pem /etc/docker/</span><br></pre></td></tr></table></figure>
+
+<h6 id="修改Docker配置，使Docker守护程序仅接受来自提供CA信任的证书的客户端的连接"><a href="#修改Docker配置，使Docker守护程序仅接受来自提供CA信任的证书的客户端的连接" class="headerlink" title="修改Docker配置，使Docker守护程序仅接受来自提供CA信任的证书的客户端的连接"></a>修改Docker配置，使Docker守护程序仅接受来自提供CA信任的证书的客户端的连接</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /lib/systemd/system/docker.service</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Docker Application Container Engine</span><br><span class="line">Documentation=https://docs.docker.com</span><br><span class="line">After=network-online.target docker.socket firewalld.service</span><br><span class="line">Wants=network-online.target</span><br><span class="line">Requires=docker.socket</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line"># the default is not to use systemd for cgroups because the delegate issues still</span><br><span class="line"># exists and systemd currently does not support the cgroup feature set required</span><br><span class="line"># for containers run by docker</span><br><span class="line">EnvironmentFile=-/etc/default/docker</span><br><span class="line">ExecStart=/usr/sbin/dockerd -H fd:// $DOCKER_OPTS</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">LimitNOFILE=1048576</span><br><span class="line"># Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="line"># in the kernel. We recommend using cgroups to do container-local accounting.</span><br><span class="line">LimitNPROC=infinity</span><br><span class="line">LimitCORE=infinity</span><br><span class="line"># Uncomment TasksMax if your systemd version supports it.</span><br><span class="line"># Only systemd 226 and above support this version.</span><br><span class="line">TasksMax=infinity</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line"># set delegate yes so that systemd does not reset the cgroups of docker containers</span><br><span class="line">Delegate=yes</span><br><span class="line"># kill only the docker process, not all processes in the cgroup</span><br><span class="line">KillMode=process</span><br><span class="line"># restart the docker process if it exits prematurely</span><br><span class="line">Restart=on-failure</span><br><span class="line">StartLimitBurst=3</span><br><span class="line">StartLimitInterval=60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h6 id="添加如下代码到配置文件中EnvironmentFile-etc-default-docker"><a href="#添加如下代码到配置文件中EnvironmentFile-etc-default-docker" class="headerlink" title="添加如下代码到配置文件中EnvironmentFile=-/etc/default/docker"></a>添加如下代码到配置文件中EnvironmentFile=-/etc/default/docker</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DOCKER_OPTS=&quot;-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server-cert.pem --tlskey=/etc/docker/server-key.pem&quot;</span><br></pre></td></tr></table></figure>
+
+<h6 id="重新加载daemon并重启docker"><a href="#重新加载daemon并重启docker" class="headerlink" title="重新加载daemon并重启docker"></a>重新加载daemon并重启docker</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload </span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h6 id="开放2375端口，到qcloud安全组里去开放端口"><a href="#开放2375端口，到qcloud安全组里去开放端口" class="headerlink" title="开放2375端口，到qcloud安全组里去开放端口"></a>开放2375端口，到qcloud安全组里去开放端口</h6><p>​      </p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2021/10/15/archlinux-i3-config-input-method/">archlinux i3wm安装配置中文输入法</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2021-10-15</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Rs $(pacman -Qsq fcitx)</span><br><span class="line">sudo pacman -S fcitx5 fcitx5-configtool fcitx5-qt fcitx5-gtk fcitx5-chinese-addons fcitx5-material-color</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>fcitx5: 输入法基础框架主程序<br>fcitx5-configtool(kcm-fcitx5)：输入法配置程序(KDE桌面环境的支持)<br>fcitx5-qt: QT5程序的支持<br>fcitx5-gtk: GTK程序的支持<br>fcitx5-chinese-addons: 简体中文输入的支持，云拼音<br>fcitx5-material-color：一款使用 Material Design 配色的 fcitx5 皮肤，旨在模仿 Windows 10 自带输入法的 UI</p>
+</blockquote>
+<p>修改输入法环境变量，使应用可以调用Fcitx5输入法,将下面的内容粘贴到<code>~/.pam_environment</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GTK_IM_MODULE DEFAULT=fcitx</span><br><span class="line">QT_IM_MODULE  DEFAULT=fcitx</span><br><span class="line">XMODIFIERS    DEFAULT=@im=fcitx</span><br></pre></td></tr></table></figure>
+
+<p>i3配置自动启动,<code>～/.i3/config</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec --no-startup-id fcitx5</span><br></pre></td></tr></table></figure>
+
+<p>配置输入法主题,修改 <code>~/.config/fcitx5/conf/classicui.conf</code><br>ps: 使用<code>fcitx5-material-color</code>这个主题,可以参照: <a target="_blank" rel="noopener" href="https://github.com/hosxy/Fcitx5-Material-Color">https://github.com/hosxy/Fcitx5-Material-Color</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 垂直候选列表</span><br><span class="line">Vertical Candidate List=False</span><br><span class="line"># 按屏幕 DPI 使用</span><br><span class="line">PerScreenDPI=True</span><br><span class="line"># Font (设置成你喜欢的字体)</span><br><span class="line">Font=&quot;思源黑体 CN Medium 13&quot;</span><br><span class="line"># 主题</span><br><span class="line">Theme=Material-Color-DeepPurple</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/5198378/128584769-7cb6493a-210e-41f3-9431-20ca283b03c1.png" alt="2021-08-07_10-10"></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2021/10/13/hello-world/">Hello World</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2021-10-13</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+                
+            </div>
+        </article>
+    
+</div>
+<div class="paginator">
+    
+        
+        
+    
+</div>
+
+        </div>
+    </div>
+
+    <footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2021
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/Hxhzfd">Hxh</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
