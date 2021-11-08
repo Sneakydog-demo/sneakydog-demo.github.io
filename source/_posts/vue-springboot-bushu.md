@@ -84,5 +84,6 @@ public String index(){
 }
 ```
 生成vue静态文件之后启动springboot
-![image](https://user-images.githubusercontent.com/5198378/140687381-7e0159b0-9d83-4af5-828c-0bc37c481f70.png)
+![image](https://user-images.githubusercontent.com/5198378/140687691-d4f603f1-541a-4d4d-9a46-813ce3425938.png)
+
 
