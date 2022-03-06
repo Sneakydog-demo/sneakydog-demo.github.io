@@ -1,45 +1,33 @@
-name: deploy gh-pages
+name: Deploy to GitHub Pages
+
 on:
   push:
     branches:
       - develop
+    # Review gh actions docs if you want to further define triggers, paths, etc
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+
 jobs:
-  build:
-    name: Build and deploy gh-pages
-    env:
-      MY_SECRET: ${{secrets.SNEAKYDOG_GITHUB_PAGES_TOKEN}}
-      USER_NAME: Hxhzfd
-      USER_EMAIL: sneakydog@yeah.net
-      PUBLISH_DIR: ./public
+  deploy:
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14]
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: install Hexo
-        run: |
-          npm install hexo-cli -g    
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Commit files
-        run: |
-          cd $PUBLISH_DIR
-          git init
-          git config --local user.name $USER_NAME
-          git config --local user.email $USER_EMAIL
-          git status
-          git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
-          git checkout -b gh-pages
-          git add --all
-          git commit -m "deploy to Github pages"
-          git push origin gh-pages -f
-          echo 🤘 deploy gh-pages complete.
+          node-version: 16.x
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build website
+        run: yarn build
+
+      # Popular action to deploy to GitHub Pages:
+      # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token:  ${{secrets.SNEAKYDOG_GITHUB_PAGES_TOKEN}}
+          # Build output to publish to the `gh-pages` branch:
+          publish_dir: ./build
