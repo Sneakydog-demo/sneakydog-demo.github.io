@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[2309],{3437:function(a){a.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/archlinux","name":"archlinux","count":1,"permalink":"/blog/tags/archlinux"}')}}]);
